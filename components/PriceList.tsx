@@ -7,8 +7,8 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
 const PriceCalculator: React.FC = () => {
-  const [comfreyQuantity, setComfreyQuantity] = useState<number>(null);
-  const [teaselQuantity, setTeaselQuantity] = useState<number>(null);
+  const [comfreyQuantity, setComfreyQuantity] = useState<number>(0);
+  const [teaselQuantity, setTeaselQuantity] = useState<number>(0);
   const [totalPrices, setTotalPrices] = useState<Record<string, number>>({});
   const [prices, setPrices] = useState<any[]>([]);
   const [quantityList, setQuantityList] = useState<
