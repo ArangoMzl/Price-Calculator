@@ -23,7 +23,7 @@ const PriceCalculator: React.FC = () => {
         );
 
         // Modificar los nombres según el item_id
-        const modifiedPrices = response.data.map((price) => {
+        const modifiedPrices = response.data.map((price: { item_id: string; itemName: any; }) => {
           const itemName =
             price.item_id === "T3_COMFREY"
               ? "Consuelda hojabrillante"
