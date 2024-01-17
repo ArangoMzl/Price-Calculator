@@ -23,19 +23,21 @@ const PriceCalculator: React.FC = () => {
         );
 
         // Modificar los nombres según el item_id
-        const modifiedPrices = response.data.map((price: { item_id: string; itemName: any; }) => {
-          const itemName =
-            price.item_id === "T3_COMFREY"
-              ? "Consuelda hojabrillante"
-              : price.item_id === "T5_TEASEL"
-              ? "Cardo de dragón"
-              : price.itemName; // Mantener el nombre original si no coincide con los anteriores
+        const modifiedPrices = response.data.map(
+          (price: { item_id: string; itemName: any }) => {
+            const itemName =
+              price.item_id === "T3_COMFREY"
+                ? "Consuelda hojabrillante"
+                : price.item_id === "T5_TEASEL"
+                ? "Cardo de dragón"
+                : price.itemName; // Mantener el nombre original si no coincide con los anteriores
 
-          return {
-            ...price,
-            itemName,
-          };
-        });
+            return {
+              ...price,
+              itemName,
+            };
+          }
+        );
 
         setPrices(modifiedPrices);
       } catch (error) {
@@ -109,7 +111,7 @@ const PriceCalculator: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#4a4857]/50 py-2 my-[15vh] md:my-[13vh] backdrop-blur-sm">
+    <div className="bg-[#4a4857]/50 py-2 backdrop-blur-sm h-full">
       <h1 className="text-[#86c28b] font-bold mb-4">Price Calculator</h1>
       <div>
         <Label>
@@ -133,7 +135,36 @@ const PriceCalculator: React.FC = () => {
           />
         </Label>
       </div>
-      <div className="my-8 gap-2 flex flex-row justify-center">
+      <div>
+        <h2 className="text-[#77b885] font-bold">Precios:</h2>
+        <div className="flex justify-center gap-5">
+          <div className="flex flex-col justify-center">
+            {prices
+              .filter((price) => price.itemName === "Consuelda hojabrillante")
+              .map((price) => (
+                <div
+                  key={price.city}
+                  className="text-center bg-white/10 w-96 m-auto rounded-lg my-2 hover:bg-white/20"
+                >
+                 {price.city} - {price.itemName}: $ {price.sell_price_min}
+                </div>
+              ))}
+          </div>
+          <div className="flex flex-col justify-center">
+            {prices
+              .filter((price) => price.itemName === "Cardo de dragón")
+              .map((price) => (
+                <div
+                  key={price.city}
+                  className="text-center bg-white/10 w-96 m-auto rounded-lg my-2 hover:bg-white/20"
+                >
+                  {price.city} - {price.itemName}: $ {price.sell_price_min}
+                </div>
+              ))}
+          </div>
+        </div>
+      </div>
+      <div className="my-4 gap-2 flex flex-row justify-center">
         <Button onClick={handleAddQuantity}>Agregar Cantidades</Button>
         <Button onClick={handleReset}>Resetear</Button>
       </div>
@@ -147,7 +178,7 @@ const PriceCalculator: React.FC = () => {
           ))}
         </ul>
       </div>
-      <div className="mt-8">
+      <div className="mt-2">
         <h2 className="text-[#77b885] font-bold">Total Prices:</h2>
         {Object.entries(totalPrices).map(([city, totalPrice]) => (
           <div
@@ -158,7 +189,7 @@ const PriceCalculator: React.FC = () => {
                   ? "lightgreen"
                   : "lightcoral",
             }}
-            className="text-center w-96 m-auto rounded-lg my-2"
+            className="text-center w-96 m-auto rounded-lg my-2.5"
           >
             {city}: $ {totalPrice}
           </div>
